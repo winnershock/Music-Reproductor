@@ -25,15 +25,35 @@ body {
 
 .content {
   flex: 1;
+
   display: flex;
+
   justify-content: center;
   align-items: center;
 }
 
 .footer {
   height: 100px;
+
   background: #202020;
+
   display: flex;
+
   justify-content: center;
   align-items: center;
+}
+
+button {
+
+  margin: 0 10px;
+
+  padding: 10px 15px;
+
+  cursor: pointer;
+
+  font-size: 18px;
+}
+
+input[type="range"] {
+  cursor: pointer;
 }
