@@ -1,15 +1,17 @@
-    function Player({ song }) {
+    import { useRef, useEffect } from "react";
 
-    if (!song) {
-        return <h2>Selecciona una canción</h2>;
-    }
+    function Player({ song, onNext, onPrev }) {
+
+    const audioRef = useRef(null);
+
+    useEffect(() => {
+        if (audioRef.current) {
+        audioRef.current.play();
+        }
+    }, [song]);
 
     return (
-        <div
-        style={{
-            textAlign: "center"
-        }}
-        >
+        <div style={{ textAlign: "center" }}>
 
         <img
             src="https://placehold.co/300x300"
@@ -18,9 +20,31 @@
 
         <h2>{song.title}</h2>
 
+        <h3>{song.artist}</h3>
+
+        <div>
+
+            <button onClick={onPrev}>
+            ⏮
+            </button>
+
+            <button
+            onClick={() => audioRef.current.play()}
+            >
+            ▶
+            </button>
+
+            <button onClick={onNext}>
+            ⏭
+            </button>
+
+        </div>
+
         <audio
+            ref={audioRef}
             controls
             src={song.file}
+            onEnded={onNext}
         />
 
         </div>

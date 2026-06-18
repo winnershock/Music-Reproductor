@@ -13,6 +13,8 @@
             }}
             >
             🎵 {song.title}
+            <br />
+            <small>{song.artist}</small>
             </div>
         ))}
         </div>

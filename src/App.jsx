@@ -5,7 +5,19 @@ import Player from "./components/Player";
 import "./App.css";
 
 function App() {
-  const [currentSong, setCurrentSong] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSong = () => {
+    setCurrentIndex((prev) =>
+      prev === songs.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevSong = () => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? songs.length - 1 : prev - 1
+    );
+  };
 
   return (
     <div className="app">
@@ -17,16 +29,22 @@ function App() {
 
           <SongList
             songs={songs}
-            onSelect={setCurrentSong}
+            onSelect={(song) => {
+              const index = songs.findIndex(
+                s => s.id === song.id
+              );
+
+              setCurrentIndex(index);
+            }}
           />
         </div>
 
         <div className="content">
-
           <Player
-            song={currentSong}
+            song={songs[currentIndex]}
+            onNext={nextSong}
+            onPrev={prevSong}
           />
-
         </div>
 
       </div>

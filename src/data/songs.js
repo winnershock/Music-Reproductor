@@ -1,17 +1,20 @@
     export const songs = [
     {
         id: 1,
-        title: "Song 1",
-        file: "/music/song1.mp3"
+        title: "Este Amor Que Se Muere",
+        artist: "Los van van",
+        file: "/music/Este Amor Que Se Muere (Remasterizado)(MP3_320K).mp3"
     },
     {
         id: 2,
-        title: "Song 2",
-        file: "/music/song2.mp3"
+        title: "Hazme Olvidarla",
+        artist: "Eddy santiago",
+        file: "/music/Hazme Olvidarla(MP3_320K).mp3"
     },
     {
         id: 3,
-        title: "Song 3",
-        file: "/music/song3.mp3"
+        title: "Querer Querernos",
+        artist: "Canserbero",
+        file: "/music/Querer Querernos(MP3_320K).mp3"
     }
     ];
