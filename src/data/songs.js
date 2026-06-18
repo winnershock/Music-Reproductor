@@ -1,0 +1,17 @@
+    export const songs = [
+    {
+        id: 1,
+        title: "Song 1",
+        file: "/music/song1.mp3"
+    },
+    {
+        id: 2,
+        title: "Song 2",
+        file: "/music/song2.mp3"
+    },
+    {
+        id: 3,
+        title: "Song 3",
+        file: "/music/song3.mp3"
+    }
+    ];
