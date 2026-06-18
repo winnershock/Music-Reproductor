@@ -2,48 +2,100 @@ import { useState } from "react";
 
 import "./App.css";
 
-import { songs }
-from "./data/songs";
-
-import SongList
-from "./components/SongList";
-
-import Player
-from "./components/Player";
+import { songs } from "./data/songs";
+import SongList from "./components/SongList";
+import Player from "./components/Player";
 
 function App() {
 
   // Canción actual
-  const [currentIndex, setCurrentIndex] =
-    useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Modo de reproducción
+  const [playMode, setPlayMode] =
+    useState("sequential");
 
   /*
-    Siguiente canción
+    SIGUIENTE CANCIÓN
   */
   const nextSong = () => {
 
-    setCurrentIndex((prev) =>
+    // ALEATORIO
+    if (playMode === "shuffle") {
 
-      prev === songs.length - 1
-        ? 0
-        : prev + 1
+      let randomIndex;
 
-    );
+      do {
+
+        randomIndex =
+          Math.floor(
+            Math.random() *
+            songs.length
+          );
+
+      } while (
+        randomIndex === currentIndex
+      );
+
+      setCurrentIndex(randomIndex);
+
+      return;
+    }
+
+    // REPETIR UNA
+    if (playMode === "repeat-one") {
+
+      setCurrentIndex(currentIndex);
+
+      return;
+    }
+
+    // REPETIR LISTA
+    if (playMode === "repeat-all") {
+
+      setCurrentIndex((prev) =>
+
+        prev === songs.length - 1
+          ? 0
+          : prev + 1
+
+      );
+
+      return;
+    }
+
+    // SECUENCIAL
+
+  setCurrentIndex((prev) =>
+
+    prev === songs.length - 1
+      ? 0
+      : prev + 1
+
+  );
 
   };
 
   /*
-    Canción anterior
+    CANCIÓN ANTERIOR
   */
   const prevSong = () => {
 
-    setCurrentIndex((prev) =>
+    if (
+      currentIndex === 0
+    ) {
 
-      prev === 0
-        ? songs.length - 1
-        : prev - 1
+      setCurrentIndex(
+        songs.length - 1
+      );
 
-    );
+    } else {
+
+      setCurrentIndex(
+        currentIndex - 1
+      );
+
+    }
 
   };
 
@@ -53,6 +105,7 @@ function App() {
 
       <div className="main">
 
+        {/* BIBLIOTECA */}
         <div className="sidebar">
 
           <h2>
@@ -65,7 +118,8 @@ function App() {
 
               const index =
                 songs.findIndex(
-                  s => s.id === song.id
+                  s =>
+                    s.id === song.id
                 );
 
               setCurrentIndex(index);
@@ -75,13 +129,72 @@ function App() {
 
         </div>
 
+        {/* CONTENIDO */}
         <div className="content">
 
-          <Player
-            song={songs[currentIndex]}
-            onNext={nextSong}
-            onPrev={prevSong}
-          />
+          <div>
+
+            {/* SELECTOR DE MODO */}
+
+            <div
+              style={{
+                textAlign: "center",
+                marginBottom: "20px"
+              }}
+            >
+
+              <label>
+                Modo:
+              </label>
+
+              <select
+                value={playMode}
+                onChange={(e) =>
+                  setPlayMode(
+                    e.target.value
+                  )
+                }
+              >
+
+                <option
+                  value="sequential"
+                >
+                  Secuencial
+                </option>
+
+                <option
+                  value="shuffle"
+                >
+                  Aleatorio
+                </option>
+
+                <option
+                  value="repeat-one"
+                >
+                  Repetir una
+                </option>
+
+                <option
+                  value="repeat-all"
+                >
+                  Repetir lista
+                </option>
+
+              </select>
+
+            </div>
+
+            {/* REPRODUCTOR */}
+
+            <Player
+              song={
+                songs[currentIndex]
+              }
+              onNext={nextSong}
+              onPrev={prevSong}
+            />
+
+          </div>
 
         </div>
 
@@ -89,7 +202,9 @@ function App() {
 
       <div className="footer">
 
-        Reproductor
+        <strong>
+          Mi Reproductor
+        </strong>
 
       </div>
 
